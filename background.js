@@ -1,7 +1,22 @@
+'use strict';
+
+function grabData(url) {
+  var result = fetch(url);
+  result.then(function (response) {
+    console.log('response', response);
+    console.log('header', response.headers.get('Content-Type'));
+  }).then(function (text) {
+    console.log('got text', text);
+  }).catch(function (ex) {
+    console.log('failed', ex);
+  });
+}
+
 // The onClicked callback function.
 function onClickHandler(info, tab) {
-  console.log("It was selected.");
-  console.log(info);
+  if (info.mediaType != "image")
+    return;
+  grabData(info.srcUrl);
 };
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
