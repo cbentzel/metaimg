@@ -1,7 +1,7 @@
 'use strict';
 
 function grabData(url) {
-  var result = fetch(url, {'cache': 'no-cache'});
+  var result = fetch(url);
   result.then(function (response) {
     console.log('response', response);
     console.log('header', response.headers.get('Content-Type'));
