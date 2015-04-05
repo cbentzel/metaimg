@@ -1,12 +1,14 @@
 'use strict';
 
 function grabData(url) {
-  var result = fetch(url);
+  var result = fetch(url, {'cache': 'no-cache'});
   result.then(function (response) {
     console.log('response', response);
     console.log('header', response.headers.get('Content-Type'));
-  }).then(function (text) {
-    console.log('got text', text);
+    return response.arrayBuffer();
+  }).then(function (buffer) {
+    console.log('got buffer', buffer);
+    console.log('buffer size', buffer.length);
   }).catch(function (ex) {
     console.log('failed', ex);
   });
