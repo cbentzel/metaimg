@@ -1,17 +1,18 @@
 'use strict';
 
-function parseImage(imageData) {
-  console.log('buffer size', imageData.length);
+function parseImage(contentType, byteArray) {
+  console.log('content type', contentType);
+  console.log('buffer size', byteArray.length);
 }
 
 function grabData(url) {
   var result = fetch(url);
+  var contentType = null;
   result.then(function (response) {
-    console.log('response', response);
-    console.log('header', response.headers.get('Content-Type'));
-    return response.text();
-  }).then(function (text) {
-    parseImage(text);
+    contentType = response.headers.get('Content-Type');
+    return response.arrayBuffer();
+  }).then(function (arrayBuffer) {
+    parseImage(contentType, new Uint8Array(arrayBuffer));
   }).catch(function (ex) {
     console.log('failed', ex);
   });
