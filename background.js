@@ -1,14 +1,17 @@
 'use strict';
 
+function parseImage(imageData) {
+  console.log('buffer size', imageData.length);
+}
+
 function grabData(url) {
   var result = fetch(url);
   result.then(function (response) {
     console.log('response', response);
     console.log('header', response.headers.get('Content-Type'));
-    return response.arrayBuffer();
-  }).then(function (buffer) {
-    console.log('got buffer', buffer);
-    console.log('buffer size', buffer.length);
+    return response.text();
+  }).then(function (text) {
+    parseImage(text);
   }).catch(function (ex) {
     console.log('failed', ex);
   });
@@ -30,5 +33,8 @@ chrome.runtime.onInstalled.addListener(function() {
     "id": "metaimg",
     "title": "Image Metadata", 
     "contexts": ["image"]
+  },
+  function() {
+    console.log('callback');
   });
 });
