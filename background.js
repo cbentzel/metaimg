@@ -26,7 +26,6 @@ function onClickHandler(info, tab) {
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
-// Set up context menu tree at install time.
 chrome.runtime.onInstalled.addListener(function() {
   var id = chrome.contextMenus.create({
     "type": "normal",
@@ -35,6 +34,8 @@ chrome.runtime.onInstalled.addListener(function() {
     "contexts": ["image"]
   },
   function() {
-    console.log('callback');
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError.message);
+    }
   });
 });
