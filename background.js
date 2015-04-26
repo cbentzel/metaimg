@@ -1,8 +1,25 @@
 'use strict';
 
+(function() {
+
+function determineFileType(byteArray) {
+  if (byteArray[0] == 0xFF && byteArray[1] == 0xD8) {
+    return 'jpeg';
+  }
+  return 'unknown';
+}
+
+function parseJpeg(byteArray) {
+}
+
 function parseImage(contentType, byteArray) {
   console.log('content type', contentType);
   console.log('buffer size', byteArray.length);
+  var fileType = determineFileType(byteArray);
+  console.log('fileType is ', fileType);
+  if (fileType == 'jpeg') {
+    parseJpeg(byteArray);
+  }
 }
 
 function grabData(url) {
@@ -40,3 +57,5 @@ chrome.runtime.onInstalled.addListener(function() {
     }
   });
 });
+
+})();
