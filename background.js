@@ -4,7 +4,12 @@
 
 function determineFileType(byteArray) {
   if (byteArray[0] == 0xFF && byteArray[1] == 0xD8) {
-    return 'jpeg';
+    // See if this is an EXIF or a JFIF file.
+    if (byteArray[2] == 0xFF && byteArray[3] == 0xE0) {
+      return 'jpeg/jfif';
+    } else if (byteArray[2] == 0xFF && byteArray[3] == 0xE1) {
+      return 'jpeg/exif';
+    }
   }
   return 'unknown';
 }
@@ -17,7 +22,7 @@ function parseImage(contentType, byteArray) {
   console.log('buffer size', byteArray.length);
   var fileType = determineFileType(byteArray);
   console.log('fileType is ', fileType);
-  if (fileType == 'jpeg') {
+  if (fileType.startsWith('jpeg/') {
     parseJpeg(byteArray);
   }
 }
