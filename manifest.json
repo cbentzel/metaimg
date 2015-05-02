@@ -13,7 +13,7 @@
   "description": "Show metadata about images",
   
   "background": {
-    "scripts": ["background.js", "exif.js"],
+    "scripts": ["exif.js", "background.js"],
     "persistent": false
   }
 }

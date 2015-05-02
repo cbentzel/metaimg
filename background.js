@@ -14,16 +14,13 @@ function determineFileType(byteArray) {
   return 'unknown';
 }
 
-function parseJpeg(byteArray) {
-}
-
 function parseImage(contentType, byteArray) {
   console.log('content type', contentType);
   console.log('buffer size', byteArray.length);
   var fileType = determineFileType(byteArray);
   console.log('fileType is ', fileType);
-  if (fileType.startsWith('jpeg/') {
-    parseJpeg(byteArray);
+  if (fileType.startsWith('jpeg/')) {
+    Exif.parse(byteArray);
   }
 }
 
